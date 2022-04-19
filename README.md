@@ -1,4 +1,4 @@
-配置 `vue3`的基础的工程模板
+配置 `vue3`的基础的工程模板，直接获取源码 [vue3-vite-js-template](https://github.com/coderminer/vue3-vite-js-template)，工程的创建过程如下
 
 ### 创建工程
 
@@ -8,11 +8,15 @@
 npm init vite vue3-vite-js-template
 ```
 
+### 配置 eslint
+
+安装相关的依赖
+
 ```
 npm install eslint eslint-plugin-vue @babel/core @babel/eslint-parser -D
 ```
 
-创建 `.eslintrc.js`
+创建 `.eslintrc.js`，添加相应的配置，配置如下
 
 ```
 module.exports = {
@@ -36,20 +40,20 @@ module.exports = {
 };
 ```
 
-创建 `.eslintignore`
+创建 `.eslintignore` 忽略文件
 
 ```
 /dist/
 /node_modules/
 ```
 
-添加 `lint`
+添加 `lint` 命令，执行命令可以自动的 fix 一些错误信息
 
 ```
 "lint": "eslint --ext .vue,.js,.ts,.jsx,.tsx --fix src"
 ```
 
-vue3 的 setup 语法糖还是有错误
+但是，`vue3` 的 `setup` 语法糖还是有错误，错误如下
 
 ```
 error  'defineProps' is not defined  no-undef
@@ -66,11 +70,9 @@ env: {
   },
 ```
 
-### eslint
-
 ### prettier
 
-统一代码风格
+统一代码风格，安装相关的依赖
 
 ```
 npm install prettier eslint-config-prettier eslint-plugin-prettier -D
@@ -80,37 +82,34 @@ npm install prettier eslint-config-prettier eslint-plugin-prettier -D
 
 ```
 module.exports = {
-  // 一行的字符数，如果超过会进行换行，默认为80
   printWidth: 120,
-  // 一个tab代表几个空格数，默认为80
   tabWidth: 2,
-  // 是否使用tab进行缩进，默认为false，表示用空格进行缩减
   useTabs: false,
-  // 字符串是否使用单引号，默认为false，使用双引号
   singleQuote: true,
-  // 行位是否使用分号，默认为true
   semi: false,
-  // 是否使用尾逗号，有三个可选值"<none|es5|all>"
   trailingComma: 'none',
-  // 对象大括号直接是否有空格，默认为true，效果：{ foo: bar }
   bracketSpacing: true,
-
-  // 开启 eslint 支持
   eslintIntegration: true
 }
 
 ```
 
-也可以添加 `.prettierignore` 文件，忽略文件
+修改 `eslint（.eslintrc.js）` 配置，解决 `eslint prettier` 的冲突，在 `extends` 中添加
 
 ```
-node_modules
-.vscode
+'plugin:prettier/recommended'
 ```
 
-修改 eslint（.eslintrc.js）配置
+在 `rules` 中，添加
 
-### 自动保存
+```
+'prettier/prettier': 'error',
+'vue/multi-word-component-names': 0
+```
+
+### 保存时格式化
+
+在 `.vscode`中，添加 `settings.json` 文件，添加下面的信息，这样使用 `ctrl + s` 保存时，会自动格式化
 
 ```
 {
@@ -123,15 +122,13 @@ node_modules
 
 ### husky
 
+提交时检查提交信息，先按照相关依赖
+
 ```
 npm install husky lint-staged -D
 ```
 
-repare 脚本会在 yarn install 之后自动运行，这样依赖你的小伙伴 clone 了你的项目之后会自动安装 husky,这里由于我们已经运行过 yarn install 了，所以我们需要手动运行一次 yarn run prepare,然后我们就会得到一个目录.husky。
-
-`npm run prepare`
-
-会生成，`.husky`文件夹，
+添加 `prepare` 命令，`prepare` 会在 `npm install` 之后自动执行，如果已经执行过 `npm install` 的话，可以直接执行 `npm run prepare`, 执行之后会生成，`.husky`文件夹，
 
 接下来我们为我们 git 仓库添加一个 pre-commit 钩子,运行
 
@@ -164,6 +161,19 @@ npx --no-install lint-staged
 ```
 
 ### 创建别名
+
+在 `vite.config.js`中添加
+
+```
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+      '@component': path.resolve(__dirname, 'src/components'),
+      '@layout': path.resolve(__dirname, 'src/layouts'),
+      '@page': path.resolve(__dirname, 'src/pages')
+    }
+  }
+```
 
 ### router
 
@@ -213,3 +223,39 @@ const app = createApp(App)
 app.use(router)
 app.mount('#app')
 ```
+
+### 添加 tailwindcss
+
+```
+npm i -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+```
+
+`tailwind.config.js`中添加
+
+```
+module.exports = {
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  theme: {
+    extend: {}
+  },
+  plugins: []
+}
+
+```
+
+创建 `index.css`
+
+```
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+在 `main.js` 中 引入
+
+```
+import './index.css'
+```
+
+然后就可以使用 `tailwindcss` 了
