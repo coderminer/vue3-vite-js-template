@@ -102,8 +102,57 @@ node_modules
 
 修改 eslint（.eslintrc.js）配置
 
+### 自动保存
 
+```
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.formatOnSave": true
+}
+```
 
 ### husky
+
+```
+npm install husky lint-staged -D
+```
+
+repare 脚本会在 yarn install 之后自动运行，这样依赖你的小伙伴 clone 了你的项目之后会自动安装 husky,这里由于我们已经运行过 yarn install 了，所以我们需要手动运行一次 yarn run prepare,然后我们就会得到一个目录.husky。
+
+`npm run prepare`
+
+会生成，`.husky`文件夹，
+
+接下来我们为我们 git 仓库添加一个 pre-commit 钩子,运行
+
+```
+npx husky add .husky/pre-commit "npx --no-install lint-staged"
+```
+
+运行之后，会在`.husky`文件夹中生成一个 `pre-commit`文件
+
+```
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npx --no-install lint-staged
+```
+
+接下来我们配置 lint-staged,在 package.json 中添加下面的配置信息
+
+```
+"lint-staged": {
+    "*.{js,vue,ts,jsx,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{html,css,less,scss,md}": [
+      "prettier --write"
+    ]
+  }
+
+```
 
 ### router
