@@ -2,16 +2,19 @@ module.exports = {
   root: true,
   parserOptions: {
     ecmaVersion: 12,
-    parser: "@babel/eslint-parser",
+    parser: '@babel/eslint-parser',
     requireConfigFile: false,
-    sourceType: "module",
+    sourceType: 'module'
   },
   env: {
     browser: true,
     node: true,
     es6: true,
-    "vue/setup-compiler-macros": true, // 新增
+    'vue/setup-compiler-macros': true // 新增
   },
-  extends: ["plugin:vue/vue3-essential", "eslint:recommended"],
-  rules: {},
-};
+  extends: ['plugin:vue/vue3-essential', 'eslint:recommended', 'plugin:prettier/recommended'],
+  rules: {
+    'prettier/prettier': 'error',
+    'vue/multi-word-component-names': 0
+  }
+}
