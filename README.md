@@ -156,3 +156,50 @@ npx --no-install lint-staged
 ```
 
 ### router
+
+安装 `vue-router`
+
+```
+npm install vue-router@4
+```
+
+创建 `router/index.js`
+
+```
+import { createRouter, createWebHashHistory } from 'vue-router'
+import Layout from '../layouts/Layout.vue'
+const routes = [
+  {
+    path: '/',
+    name: 'Layout',
+    component: Layout,
+    redirect: 'home',
+    children: [
+      {
+        path: 'home',
+        name: 'Home',
+        component: () => import('../pages/Home.vue')
+      }
+    ]
+  }
+]
+
+const router = createRouter({
+  routes: routes,
+  history: createWebHashHistory()
+})
+
+export default router
+```
+
+在 `main.js`中引入路由
+
+```
+...
+
+import router from './router'
+
+const app = createApp(App)
+app.use(router)
+app.mount('#app')
+```
