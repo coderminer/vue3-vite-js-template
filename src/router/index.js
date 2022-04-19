@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Layout from '../layouts/Layout.vue'
+import Layout from '@layout/Layout.vue'
 const routes = [
   {
     path: '/',
@@ -10,7 +10,7 @@ const routes = [
       {
         path: 'home',
         name: 'Home',
-        component: () => import('../pages/Home.vue')
+        component: () => import('@page/Home.vue')
       }
     ]
   }

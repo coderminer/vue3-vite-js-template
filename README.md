@@ -1,4 +1,12 @@
+配置 `vue3`的基础的工程模板
+
 ### 创建工程
+
+执行下面的命令创建工程，根据提示选择 `vue`
+
+```
+npm init vite vue3-vite-js-template
+```
 
 ```
 npm install eslint eslint-plugin-vue @babel/core @babel/eslint-parser -D
@@ -154,6 +162,8 @@ npx --no-install lint-staged
   }
 
 ```
+
+### 创建别名
 
 ### router
 
