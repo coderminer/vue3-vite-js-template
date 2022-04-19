@@ -10,6 +10,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "axios": "^0.26.1",
     "vue": "^3.2.25",
     "vue-router": "^4.0.14"
   },

@@ -3,9 +3,19 @@
 </template>
 
 <script>
+import { ref, onBeforeMount } from 'vue'
+import { info } from '../api/user'
+
 export default {
   setup() {
-    return {}
+    const userInfo = ref(null)
+    onBeforeMount(async () => {
+      const res = await info({ id: 1 })
+      userInfo.value = res
+    })
+    return {
+      userInfo
+    }
   }
 }
 </script>
