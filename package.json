@@ -1,7 +1,19 @@
 {
   "name": "vue3-vite-js-template",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "author": {
+    "name": "coderminer",
+    "url": "https://github.com/coderminer"
+  },
+  "license": "MIT",
+  "keywords": [
+    "vue3",
+    "vite",
+    "tailwindcss",
+    "axios",
+    "template"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
