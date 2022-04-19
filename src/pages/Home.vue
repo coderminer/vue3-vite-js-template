@@ -1,16 +1,20 @@
 <template>
-  <div class="w-screen h-screen bg-amber-600">Home</div>
+  <div class="w-screen h-screen flex justify-center items-center bg-amber-600">
+    <div v-if="userInfo">
+      <p class="font-mono text-white text-2xl">{{ userInfo.content }}</p>
+    </div>
+  </div>
 </template>
 
 <script>
 import { ref, onBeforeMount } from 'vue'
-import { info } from '../api/user'
+import { text } from '../api/user'
 
 export default {
   setup() {
     const userInfo = ref(null)
     onBeforeMount(async () => {
-      const res = await info({ id: 1 })
+      const res = await text({ export: 'json' })
       userInfo.value = res
     })
     return {

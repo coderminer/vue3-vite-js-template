@@ -1,4 +1,5 @@
-import { post, get } from './manager'
+import { get } from './manager'
 
-export const info = (params) => get('/user/info', params)
-export const login = (data) => post('/user/login', data)
+export const text = (params) => {
+  return get('/api-text_yiyan', params)
+}
